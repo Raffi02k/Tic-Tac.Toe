@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
 public class TicTacToeController {
 
     @FXML
-    private Label playerXScore, playerOScore, turnLabel;
+    private Label playerXScore, playerOScore, turnLabel, resultLabel;
 
     @FXML
     private Button button1, button2, button3, button4, button5, button6, button7, button8, button9;
@@ -18,6 +18,7 @@ public class TicTacToeController {
     @FXML
     private Button restartButton;
 
+    private boolean isGameOver = false;  // Kontrollera om spelet är slut
     private Model model = new Model();
 
     private Image xImage = new Image(getClass().getResourceAsStream("/com/example/sistalab3/image/X Background Removed.png"));
@@ -27,10 +28,15 @@ public class TicTacToeController {
     private void initialize() {
         turnLabel.setText("X's Turn"); // Starta spelet med X:s tur
         restartButton.setVisible(false); // Dölj restart-knappen tills spelet är över
+        resultLabel.setText(""); // Nollställ resultatlabeln
     }
 
     @FXML
     private void handleButtonClick(javafx.event.ActionEvent event) {
+        if (isGameOver) {  // Om spelet är över, gör ingenting
+            return;
+        }
+
         Button clickedButton = (Button) event.getSource();
 
         // Kontrollera om knappen redan har en bild, om så gör ingenting
@@ -49,13 +55,14 @@ public class TicTacToeController {
         // Sätt "X" eller "O" som identifierare för att använda i vinnarkontrollen
         clickedButton.setUserData(model.isXTurn() ? "X" : "O");
 
-        // Kontrollera om någon har vunnit
+        // Kontrollera om någon har vunnit eller om det är oavgjort
         checkWinner();
-        if (!restartButton.isVisible()) {  // Om spelet inte är slut, byt tur
+
+        // Om spelet inte är slut, byt tur
+        if (!isGameOver) {
             model.switchTurn();  // Byt tur i Model
             turnLabel.setText(model.isXTurn() ? "X's Turn" : "O's Turn");  // Uppdatera texten med vems tur det är
         }
-
     }
 
     private void checkWinner() {
@@ -76,25 +83,25 @@ public class TicTacToeController {
                     b1.getUserData().equals(b3.getUserData())) {
 
                 String winner = b1.getUserData().toString();
-                turnLabel.setText("Player " + winner + " wins!");
+                resultLabel.setText("The winner is " + winner + "!");  // Visa vinnaren
 
-                // Uppdatera poäng
+                // Uppdatera poängen för vinnaren
                 if (winner.equals("X")) {
                     model.incrementXScore();
                 } else {
                     model.incrementOScore();
                 }
 
-                updateScore();
-                showRestartButton();
+                updateScore();  // Uppdatera poängtavlan
+                showRestartButton(); // Visa restart-knappen
+                isGameOver = true;  // Markera att spelet är slut
                 return;
             }
         }
 
-        // Kontrollera om alla knappar är fyllda, då är det en oavgjord match
+        // Kontrollera om alla knappar är fyllda utan vinnare, då är det oavgjort
         boolean isDraw = true;
-        for (Button button : new Button[]{button1, button2, button3,
-                button4, button5, button6, button7, button8, button9}) {
+        for (Button button : new Button[]{button1, button2, button3, button4, button5, button6, button7, button8, button9}) {
             if (button.getGraphic() == null) {
                 isDraw = false;
                 break;
@@ -102,9 +109,9 @@ public class TicTacToeController {
         }
 
         if (isDraw) {
-            turnLabel.setText("It's a Draw!");
-            showRestartButton();
-
+            resultLabel.setText("It's a Draw!");  // Visa "oavgjort"-meddelande
+            showRestartButton(); // Visa restart-knappen
+            isGameOver = true;  // Markera att spelet är slut
         }
     }
 
@@ -115,35 +122,25 @@ public class TicTacToeController {
 
     @FXML
     private void resetBoard() {
-        button1.setGraphic(null);
-        button2.setGraphic(null);
-        button3.setGraphic(null);
-        button4.setGraphic(null);
-        button5.setGraphic(null);
-        button6.setGraphic(null);
-        button7.setGraphic(null);
-        button8.setGraphic(null);
-        button9.setGraphic(null);
+        // Återställ grafiken och användardata för alla knappar
+        for (Button button : new Button[]{button1, button2, button3,
+                button4, button5, button6, button7, button8, button9}) {
+            button.setGraphic(null);
+            button.setUserData(null);
+        }
 
-        // Rensa UserData för alla knappar
-        button1.setUserData(null);
-        button2.setUserData(null);
-        button3.setUserData(null);
-        button4.setUserData(null);
-        button5.setUserData(null);
-        button6.setUserData(null);
-        button7.setUserData(null);
-        button8.setUserData(null);
-        button9.setUserData(null);
-        turnLabel.setText("X's Turn"); // Återställ till standard "X's Turn"
-        restartButton.setVisible(false); // Dölj restart-knappen
+        turnLabel.setText("X's Turn");  // Återställ till "X's Turn"
+        resultLabel.setText(""); // Nollställ resultatlabeln
+        turnLabel.setVisible(true);  // Visa turtexten igen
+        restartButton.setVisible(false);  // Dölj restart-knappen
 
-        model.resetGame();
+        model.resetGame();  // Återställ modellen
+        isGameOver = false;  // Återställ spelet till "inte över"
     }
 
     private void showRestartButton() {
         restartButton.setVisible(true);
-        turnLabel.setVisible(false);
+        turnLabel.setVisible(false);  // Dölj turtexten när spelet är över
     }
 
     private Button getButtonByIndex(int index) {

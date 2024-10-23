@@ -30,10 +30,6 @@ public class Model {
         oScore++;
     }
 
-    public void resetScores() {
-        xScore = 0;
-        oScore = 0;
-    }
     public void resetGame() {
         isXTurn = true;  // Återställ så att X börjar
     }
