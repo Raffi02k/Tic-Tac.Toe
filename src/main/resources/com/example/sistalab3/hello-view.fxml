@@ -16,6 +16,8 @@
     <Label fx:id="resultLabel" style="-fx-font-size: 22px; -fx-font-family: 'Chalkboard SE'" text="" textFill="#ff0804" GridPane.columnSpan="3" GridPane.halignment="center" GridPane.rowIndex="1" GridPane.valignment="center" />
 
     <!-- Poängtavla -->
+    <Label fx:id="countdownLabel" style="-fx-font-size: 22px; -fx-font-family: 'Chalkboard SE'" text="" textFill="#bfa461" translateX="172.0" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+
     <Label fx:id="playerXScore" style="-fx-font-size: 22px; -fx-font-family: 'Arial'; -fx-font-weight: bold;" text="Player X: 0" textFill="#0a511d" GridPane.halignment="left" GridPane.rowIndex="2" />
     <Label fx:id="playerOScore" style="-fx-font-size: 22px; -fx-font-family: 'Arial'; -fx-font-weight: bold;" text="Player O: 0" textFill="#00427c" GridPane.columnIndex="2" GridPane.halignment="right" GridPane.rowIndex="2" />
 

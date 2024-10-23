@@ -6,6 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 public class TicTacToeController {
 
@@ -13,10 +16,16 @@ public class TicTacToeController {
     private Label playerXScore, playerOScore, turnLabel, resultLabel;
 
     @FXML
+    private Label countdownLabel;
+    private int countdown;
+
+    @FXML
     private Button button1, button2, button3, button4, button5, button6, button7, button8, button9;
 
     @FXML
     private Button restartButton;
+
+    private Timeline turnTimer;
 
     private boolean isGameOver = false;  // Kontrollera om spelet är slut
     private Model model = new Model();
@@ -29,6 +38,21 @@ public class TicTacToeController {
         turnLabel.setText("X's Turn"); // Starta spelet med X:s tur
         restartButton.setVisible(false); // Dölj restart-knappen tills spelet är över
         resultLabel.setText(""); // Nollställ resultatlabeln
+
+        countdownLabel.setVisible(false);
+
+        turnTimer = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            if (countdown > 0) {
+                countdownLabel.setText(String.valueOf(countdown)); // Visa nedräkningen
+                countdown--;
+            } else {
+                resultLabel.setText("Time's up! Game over.");
+                showRestartButton();
+                isGameOver = true;
+                turnTimer.stop(); // Stoppa timern när tiden är slut
+            }
+        }));
+        turnTimer.setCycleCount(Timeline.INDEFINITE);
     }
 
     @FXML
@@ -44,7 +68,12 @@ public class TicTacToeController {
             return;
         }
 
-        // Skapa en ImageView baserat på vilken tur det är
+
+        countdown = 3;
+        countdownLabel.setText(String.valueOf(countdown));
+        countdownLabel.setVisible(true);
+        turnTimer.playFromStart();
+
         ImageView imageView = new ImageView(model.isXTurn() ? xImage : oImage);
         imageView.setFitWidth(100);
         imageView.setFitHeight(100);
@@ -133,14 +162,18 @@ public class TicTacToeController {
         resultLabel.setText(""); // Nollställ resultatlabeln
         turnLabel.setVisible(true);  // Visa turtexten igen
         restartButton.setVisible(false);  // Dölj restart-knappen
+        countdownLabel.setVisible(false);
 
         model.resetGame();  // Återställ modellen
         isGameOver = false;  // Återställ spelet till "inte över"
+
+        turnTimer.stop();
     }
 
     private void showRestartButton() {
         restartButton.setVisible(true);
         turnLabel.setVisible(false);  // Dölj turtexten när spelet är över
+        turnTimer.stop();
     }
 
     private Button getButtonByIndex(int index) {
