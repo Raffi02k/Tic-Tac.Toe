@@ -8,4 +8,6 @@ module com.example.sistalab3 {
     exports com.example.sistalab3;
     exports com.example.sistalab3.controller;
     opens com.example.sistalab3.controller to javafx.fxml;
+    exports com.example.sistalab3.model;
+    opens com.example.sistalab3.model to javafx.fxml;
 }

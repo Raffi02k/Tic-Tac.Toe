@@ -4,37 +4,51 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="gridPane" alignment="center" hgap="1" prefHeight="453.0" prefWidth="423.0" style="-fx-background-color: white;" vgap="1" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="com.example.sistalab3.controller.TicTacToeController">
+<GridPane fx:id="gridPane" alignment="center" hgap="1" prefHeight="453.0" prefWidth="534.0" style="-fx-background-color: white;" vgap="1" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistalab3.controller.TicTacToeController">
     <padding>
         <Insets topRightBottomLeft="20" />
     </padding>
 
+    <!-- Label för att visa vems tur det är -->
+    <Label fx:id="turnLabel" scaleZ="0.0" style="-fx-font-size: 22px; -fx-font-family: 'Chalkboard SE'" text="X's Turn" textFill="#7c0b0b" translateX="140.0">
+        <rotationAxis>
+            <Point3D x="1.0" z="1.0" />
+        </rotationAxis>
+    </Label>
+
     <!-- Poängtavla -->
-    <Label fx:id="playerXScore" style="-fx-font-size: 22px; -fx-font-family: 'Arial'; -fx-font-weight: bold;" text="Player X: 0" GridPane.columnIndex="0" GridPane.halignment="left" GridPane.rowIndex="0" />
-    <Label fx:id="playerOScore" style="-fx-font-size: 22px; -fx-font-family: 'Arial'; -fx-font-weight: bold;" text="Player O: 0" GridPane.columnIndex="2" GridPane.halignment="right" GridPane.rowIndex="0" />
+    <Label fx:id="playerXScore" style="-fx-font-size: 22px; -fx-font-family: 'Arial'; -fx-font-weight: bold;" text="Player X: 0" textFill="#0a511d" GridPane.halignment="left" GridPane.rowIndex="1" />
+    <Label fx:id="playerOScore" style="-fx-font-size: 22px; -fx-font-family: 'Arial'; -fx-font-weight: bold;" text="Player O: 0" textFill="#00427c" GridPane.columnIndex="2" GridPane.halignment="right" GridPane.rowIndex="1" />
 
     <!-- Tic-Tac-Toe Grid -->
-    <Button fx:id="button1" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-    <Button fx:id="button2" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-    <Button fx:id="button3" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+    <Button fx:id="button1" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.rowIndex="2" />
+    <Button fx:id="button2" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <Button fx:id="button3" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.columnIndex="2" GridPane.rowIndex="2" />
 
-    <Button fx:id="button4" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-    <Button fx:id="button5" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-    <Button fx:id="button6" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+    <Button fx:id="button4" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.rowIndex="3" />
+    <Button fx:id="button5" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+    <Button fx:id="button6" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.columnIndex="2" GridPane.rowIndex="3" />
 
-    <Button fx:id="button7" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-    <Button fx:id="button8" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-    <Button fx:id="button9" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-   <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
+    <Button fx:id="button7" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.rowIndex="4" />
+    <Button fx:id="button8" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+    <Button fx:id="button9" minHeight="120" minWidth="120" onAction="#handleButtonClick" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+
+    <!-- Restart-knapp (osynlig från start) -->
+    <Button fx:id="restartButton" onAction="#resetBoard" text="Restart Game" visible="false" GridPane.columnIndex="1" GridPane.halignment="center" GridPane.rowIndex="5" />
+
+
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
 
 </GridPane>
