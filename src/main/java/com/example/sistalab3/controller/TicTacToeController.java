@@ -27,7 +27,7 @@ public class TicTacToeController {
 
     private Timeline turnTimer;
 
-    private boolean isGameOver = false;  // Kontrollera om spelet är slut
+    private boolean isGameOver = false;
     private Model model = new Model();
 
     private Image xImage = new Image(getClass().getResourceAsStream("/com/example/sistalab3/image/X Background Removed.png"));
@@ -35,27 +35,34 @@ public class TicTacToeController {
 
     @FXML
     private void initialize() {
-        turnLabel.setText("X's Turn"); // Starta spelet med X:s tur
-        restartButton.setVisible(false); // Dölj restart-knappen tills spelet är över
-        resultLabel.setText(""); // Nollställ resultatlabeln
+        turnLabel.setText("X's Turn");
+        restartButton.setVisible(false);
+        resultLabel.setText("");
 
         countdownLabel.setVisible(false);
 
         turnTimer = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             if (countdown > 0) {
-                countdownLabel.setText(String.valueOf(countdown)); // Visa nedräkningen
+                countdownLabel.setText(String.valueOf(countdown));
                 countdown--;
             } else {
+
                 resultLabel.setText("Time's up! Game over.");
+                if (model.isXTurn()) {
+                    model.incrementOScore();
+                } else {
+                    model.incrementXScore();
+                }
+                updateScore();
                 showRestartButton();
                 isGameOver = true;
-                turnTimer.stop(); // Stoppa timern när tiden är slut
+                turnTimer.stop();
             }
         }));
         turnTimer.setCycleCount(Timeline.INDEFINITE);
     }
 
-    @FXML
+        @FXML
     private void handleButtonClick(javafx.event.ActionEvent event) {
         if (isGameOver) {  // Om spelet är över, gör ingenting
             return;

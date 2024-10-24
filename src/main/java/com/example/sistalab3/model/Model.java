@@ -31,6 +31,6 @@ public class Model {
     }
 
     public void resetGame() {
-        isXTurn = true;  // Återställ så att X börjar
+        isXTurn = true;
     }
 }
