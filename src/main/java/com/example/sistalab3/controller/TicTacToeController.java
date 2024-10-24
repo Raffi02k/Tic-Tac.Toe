@@ -33,6 +33,7 @@ public class TicTacToeController {
     private Timeline turnTimer;
 
     private String difficulty;
+    private boolean isXTurn = true;
     private boolean isGameOver = false;
     private Model model = new Model();
 
@@ -55,6 +56,16 @@ public class TicTacToeController {
                 model.setAIType(Model.AIType.HARD);
                 break;
         }
+    }
+    public void setCoopMode() {
+        model.setAIType(Model.AIType.CO_OP);
+        isXTurn = true;
+        updateTurnLabel();
+    }
+
+    private void updateTurnLabel() {
+        String currentTurn = model.isXTurn() ? "X's Turn" : "O's Turn";
+        turnLabel.setText(currentTurn);
     }
 
 
@@ -86,14 +97,14 @@ public class TicTacToeController {
         }));
         turnTimer.setCycleCount(Timeline.INDEFINITE);
     }
+
     @FXML
     private void handleButtonClick(javafx.event.ActionEvent event) {
-        if (isGameOver) {  // Om spelet är över, gör ingenting
+        if (isGameOver) {
             return;
         }
 
         Button clickedButton = (Button) event.getSource();
-        // Kontrollera om knappen redan har en bild, om så gör ingenting
         if (clickedButton.getGraphic() != null) {
             return;
         }
@@ -103,23 +114,20 @@ public class TicTacToeController {
         countdownLabel.setVisible(true);
         turnTimer.playFromStart();
 
-        int index = Integer.parseInt(clickedButton.getId().replace("button", "")) - 1; // Få index från knappen
+        int index = Integer.parseInt(clickedButton.getId().replace("button", "")) - 1;
         String currentPlayer = model.getCurrentPlayer();
         model.makeMove(index, currentPlayer);
 
-        ImageView imageView = new ImageView(xImage); // Sätt alltid X:s bild för spelaren
+        ImageView imageView = new ImageView(model.isXTurn() ? xImage : oImage);
         imageView.setFitWidth(100);
         imageView.setFitHeight(100);
         imageView.setPreserveRatio(true);
-
-        // Sätt bilden på knappen
         clickedButton.setGraphic(imageView);
-        clickedButton.setUserData("X");
+        clickedButton.setUserData(model.isXTurn() ? "X" : "O");
 
-        // Kolla om spelaren har vunnit
         String winner = model.checkWinner();
         if (winner != null) {
-            resultLabel.setText("The winner is " + winner + "!"); // Visa vinnaren
+            resultLabel.setText("The winner is " + winner + "!");
             if (winner.equals("X")) {
                 model.incrementXScore();
             } else {
@@ -131,15 +139,11 @@ public class TicTacToeController {
             return;
         }
 
-        // Byt tur
+        // Byt tur och uppdatera tur-labeln
         model.switchTurn();
-        turnLabel.setText(model.isXTurn() ? "X's Turn" : "O's Turn");
-
-        // Om det är O:s tur, låt AI göra sitt drag
-        if (!model.isXTurn()) {
-            makeAIMove();
-        }
+        updateTurnLabel(); // Kalla på updateTurnLabel här
     }
+
 
 
     private void updateScore() {
@@ -194,7 +198,7 @@ public class TicTacToeController {
         }
 
         model.switchTurn();
-        turnLabel.setText("X's Turn");
+        updateTurnLabel();
     }
 
     @FXML

@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Model {
     public enum AIType {
-        EASY, MEDIUM, HARD
+        EASY, MEDIUM, HARD, CO_OP
     }
 
     private AIType aiType;
@@ -15,11 +15,17 @@ public class Model {
     private int oScore = 0;
     private String[] board = new String[9]; // Håll koll på brädet
 
+    public AIType getAIType() {
+        return aiType; // Ny metod för att få AI-typ
+    }
     public void setAIType(AIType aiType) {
         this.aiType = aiType;
     }
 
     public int getAIMove() {
+        if (aiType == AIType.CO_OP) {
+            return -1; // Ingen AI i Co-op-läget
+        }
         switch (aiType) {
             case EASY:
                 return getRandomAvailableMove(); // Slumpar ett drag

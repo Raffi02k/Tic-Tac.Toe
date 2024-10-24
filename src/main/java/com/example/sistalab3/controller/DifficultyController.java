@@ -14,6 +14,27 @@ public class DifficultyController {
     private Button easyButton, mediumButton, hardButton;
 
     @FXML
+    private Button coopButton;
+
+
+    @FXML
+    private void handleCoop() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sistalab3/hello-view.fxml"));
+            Parent root = loader.load();
+
+            // Hämta TicTacToeController och ställ in läget till Co-op
+            TicTacToeController controller = loader.getController();
+            controller.setCoopMode(); // Ny metod i TicTacToeController
+
+            Stage stage = (Stage) coopButton.getScene().getWindow();
+            stage.setScene(new Scene(root, 600, 550));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void handleEasy() {
         loadGameScreen("easy");
     }
