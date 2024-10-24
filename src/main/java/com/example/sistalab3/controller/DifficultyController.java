@@ -16,47 +16,39 @@ public class DifficultyController {
     @FXML
     private Button coopButton;
 
-
     @FXML
     private void handleCoop() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sistalab3/hello-view.fxml"));
-            Parent root = loader.load();
-
-            // Hämta TicTacToeController och ställ in läget till Co-op
-            TicTacToeController controller = loader.getController();
-            controller.setCoopMode(); // Ny metod i TicTacToeController
-
-            Stage stage = (Stage) coopButton.getScene().getWindow();
-            stage.setScene(new Scene(root, 600, 550));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        loadGameScreen("coop"); // Ladda co-op-läget
     }
 
     @FXML
     private void handleEasy() {
-        loadGameScreen("easy");
+        loadGameScreen("easy"); // Ladda easy-läget
     }
 
     @FXML
     private void handleMedium() {
-        loadGameScreen("medium");
+        loadGameScreen("medium"); // Ladda medium-läget
     }
 
     @FXML
     private void handleHard() {
-        loadGameScreen("hard");
+        loadGameScreen("hard"); // Ladda hard-läget
     }
 
-    private void loadGameScreen(String difficulty) {
+    private void loadGameScreen(String mode) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sistalab3/hello-view.fxml"));
             Parent root = loader.load();
 
-            // Hämta kontroller för spelet och skicka svårighetsinställningen
+            // Hämta TicTacToeController och ställ in läget
             TicTacToeController controller = loader.getController();
-            controller.setDifficulty(difficulty);
+
+            if (mode.equals("coop")) {
+                controller.setCoopMode(); // Ställ in co-op-läget (AI inaktiverad)
+            } else {
+                controller.setDifficulty(mode); // Sätt svårighetsgrad och aktivera AI
+            }
 
             Stage stage = (Stage) easyButton.getScene().getWindow();
             stage.setScene(new Scene(root, 600, 550));

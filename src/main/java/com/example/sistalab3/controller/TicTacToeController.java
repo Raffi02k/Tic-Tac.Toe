@@ -57,6 +57,7 @@ public class TicTacToeController {
                 break;
         }
     }
+
     public void setCoopMode() {
         model.setAIType(Model.AIType.CO_OP);
         isXTurn = true;
@@ -106,7 +107,7 @@ public class TicTacToeController {
 
         Button clickedButton = (Button) event.getSource();
         if (clickedButton.getGraphic() != null) {
-            return;
+            return; // Om knappen redan har en symbol, gör inget
         }
 
         countdown = 3;
@@ -116,7 +117,7 @@ public class TicTacToeController {
 
         int index = Integer.parseInt(clickedButton.getId().replace("button", "")) - 1;
         String currentPlayer = model.getCurrentPlayer();
-        model.makeMove(index, currentPlayer);
+        model.makeMove(index, currentPlayer); // Gör draget
 
         ImageView imageView = new ImageView(model.isXTurn() ? xImage : oImage);
         imageView.setFitWidth(100);
@@ -127,23 +128,32 @@ public class TicTacToeController {
 
         String winner = model.checkWinner();
         if (winner != null) {
-            resultLabel.setText("The winner is " + winner + "!");
-            if (winner.equals("X")) {
-                model.incrementXScore();
+            if (winner.equals("Draw")) {
+                resultLabel.setText("It's a draw!");
+                // Inga poäng läggs till vid oavgjort
             } else {
-                model.incrementOScore();
+                resultLabel.setText("The winner is " + winner + "!");
+                if (winner.equals("X")) {
+                    model.incrementXScore();
+                } else {
+                    model.incrementOScore();
+                }
+                updateScore();
             }
-            updateScore();
+
             showRestartButton();
             isGameOver = true;
             return;
         }
 
-        // Byt tur och uppdatera tur-labeln
         model.switchTurn();
-        updateTurnLabel(); // Kalla på updateTurnLabel här
-    }
+        updateTurnLabel();
 
+        // Gör AI-draget om det är O:s tur och inte Co-op-läget
+        if (model.getAIType() != Model.AIType.CO_OP && !isGameOver) {
+            makeAIMove();
+        }
+    }
 
 
     private void updateScore() {

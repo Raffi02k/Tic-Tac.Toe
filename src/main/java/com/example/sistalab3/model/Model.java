@@ -89,13 +89,12 @@ public class Model {
             }
         }
 
-        // Kontrollera om det är oavgjort
         for (String cell : board) {
             if (cell == null) {
-                return null; // Spelet fortsätter
+                return null;
             }
         }
-        return "Draw"; // Det är oavgjort
+        return "Draw";
     }
 
     public String getCurrentPlayer() {
