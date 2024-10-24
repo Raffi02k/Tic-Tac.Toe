@@ -30,7 +30,7 @@ public class DifficultyController {
 
     private void loadGameScreen(String difficulty) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Difficulty.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sistalab3/hello-view.fxml"));
             Parent root = loader.load();
 
             // Hämta kontroller för spelet och skicka svårighetsinställningen
@@ -38,7 +38,7 @@ public class DifficultyController {
             controller.setDifficulty(difficulty);
 
             Stage stage = (Stage) easyButton.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(root, 600, 550));
         } catch (IOException e) {
             e.printStackTrace();
         }

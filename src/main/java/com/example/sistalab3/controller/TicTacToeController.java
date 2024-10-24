@@ -2,13 +2,19 @@ package com.example.sistalab3.controller;
 
 import com.example.sistalab3.model.Model;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.io.IOException;
 
 public class TicTacToeController {
 
@@ -35,10 +41,21 @@ public class TicTacToeController {
 
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
-        System.out.println("Svårighetsgrad satt till: " + difficulty);  // För debug, skriv ut svårighetsgraden
+        System.out.println("Svårighetsgrad satt till: " + difficulty);
+
+        // Beroende på svårighetsgrad, implementera olika AI-strategier senare.
+        switch (difficulty) {
+            case "easy":
+                model.setAIType(Model.AIType.EASY);
+                break;
+            case "medium":
+                model.setAIType(Model.AIType.MEDIUM);
+                break;
+            case "hard":
+                model.setAIType(Model.AIType.HARD);
+                break;
+        }
     }
-
-
 
 
     @FXML
@@ -69,95 +86,61 @@ public class TicTacToeController {
         }));
         turnTimer.setCycleCount(Timeline.INDEFINITE);
     }
-
-        @FXML
+    @FXML
     private void handleButtonClick(javafx.event.ActionEvent event) {
         if (isGameOver) {  // Om spelet är över, gör ingenting
             return;
         }
 
         Button clickedButton = (Button) event.getSource();
-
         // Kontrollera om knappen redan har en bild, om så gör ingenting
         if (clickedButton.getGraphic() != null) {
             return;
         }
-
 
         countdown = 3;
         countdownLabel.setText(String.valueOf(countdown));
         countdownLabel.setVisible(true);
         turnTimer.playFromStart();
 
-        ImageView imageView = new ImageView(model.isXTurn() ? xImage : oImage);
+        int index = Integer.parseInt(clickedButton.getId().replace("button", "")) - 1; // Få index från knappen
+        String currentPlayer = model.getCurrentPlayer();
+        model.makeMove(index, currentPlayer);
+
+        ImageView imageView = new ImageView(xImage); // Sätt alltid X:s bild för spelaren
         imageView.setFitWidth(100);
         imageView.setFitHeight(100);
         imageView.setPreserveRatio(true);
 
         // Sätt bilden på knappen
         clickedButton.setGraphic(imageView);
-        // Sätt "X" eller "O" som identifierare för att använda i vinnarkontrollen
-        clickedButton.setUserData(model.isXTurn() ? "X" : "O");
+        clickedButton.setUserData("X");
 
-        // Kontrollera om någon har vunnit eller om det är oavgjort
-        checkWinner();
+        // Kolla om spelaren har vunnit
+        String winner = model.checkWinner();
+        if (winner != null) {
+            resultLabel.setText("The winner is " + winner + "!"); // Visa vinnaren
+            if (winner.equals("X")) {
+                model.incrementXScore();
+            } else {
+                model.incrementOScore();
+            }
+            updateScore();
+            showRestartButton();
+            isGameOver = true;
+            return;
+        }
 
-        // Om spelet inte är slut, byt tur
-        if (!isGameOver) {
-            model.switchTurn();  // Byt tur i Model
-            turnLabel.setText(model.isXTurn() ? "X's Turn" : "O's Turn");  // Uppdatera texten med vems tur det är
+        // Byt tur
+        model.switchTurn();
+        turnLabel.setText(model.isXTurn() ? "X's Turn" : "O's Turn");
+
+        // Om det är O:s tur, låt AI göra sitt drag
+        if (!model.isXTurn()) {
+            makeAIMove();
         }
     }
 
-    private void checkWinner() {
-        int[][] winningCombinations = {
-                {0, 1, 2}, {3, 4, 5}, {6, 7, 8},
-                {0, 3, 6}, {1, 4, 7}, {2, 5, 8},
-                {0, 4, 8}, {2, 4, 6}
-        };
-
-        for (int[] combination : winningCombinations) {
-            Button b1 = getButtonByIndex(combination[0]);
-            Button b2 = getButtonByIndex(combination[1]);
-            Button b3 = getButtonByIndex(combination[2]);
-
-            // Kontrollera om alla tre knappar i kombinationen har samma UserData (dvs "X" eller "O")
-            if (b1.getUserData() != null &&
-                    b1.getUserData().equals(b2.getUserData()) &&
-                    b1.getUserData().equals(b3.getUserData())) {
-
-                String winner = b1.getUserData().toString();
-                resultLabel.setText("The winner is " + winner + "!");  // Visa vinnaren
-
-                // Uppdatera poängen för vinnaren
-                if (winner.equals("X")) {
-                    model.incrementXScore();
-                } else {
-                    model.incrementOScore();
-                }
-
-                updateScore();  // Uppdatera poängtavlan
-                showRestartButton(); // Visa restart-knappen
-                isGameOver = true;  // Markera att spelet är slut
-                return;
-            }
-        }
-
-        // Kontrollera om alla knappar är fyllda utan vinnare, då är det oavgjort
-        boolean isDraw = true;
-        for (Button button : new Button[]{button1, button2, button3, button4, button5, button6, button7, button8, button9}) {
-            if (button.getGraphic() == null) {
-                isDraw = false;
-                break;
-            }
-        }
-
-        if (isDraw) {
-            resultLabel.setText("It's a Draw!");  // Visa "oavgjort"-meddelande
-            showRestartButton(); // Visa restart-knappen
-            isGameOver = true;  // Markera att spelet är slut
-        }
-    }
 
     private void updateScore() {
         playerXScore.setText("Player X: " + model.getXScore());
@@ -179,6 +162,56 @@ public class TicTacToeController {
         model.resetGame();
         isGameOver = false;
         turnTimer.stop();
+    }
+
+
+    private void makeAIMove() {
+        int move = model.getAIMove(); // Hämta AI:s drag
+        String currentPlayer = model.getCurrentPlayer();
+        model.makeMove(move, currentPlayer); // Gör draget i modellen
+
+        Button aiButton = getButtonByIndex(move);
+        ImageView imageView = new ImageView(oImage);
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
+        imageView.setPreserveRatio(true);
+        aiButton.setGraphic(imageView);
+        aiButton.setUserData("O");
+
+        // Kolla om AI har vunnit
+        String winner = model.checkWinner();
+        if (winner != null) {
+            resultLabel.setText("The winner is " + winner + "!");
+            if (winner.equals("X")) {
+                model.incrementXScore();
+            } else {
+                model.incrementOScore();
+            }
+            updateScore();
+            showRestartButton();
+            isGameOver = true;
+            return;
+        }
+
+        model.switchTurn();
+        turnLabel.setText("X's Turn");
+    }
+
+    @FXML
+    private Button homeButton;
+
+    @FXML
+    private void goToHome() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sistalab3/Menu.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) homeButton.getScene().getWindow();
+            stage.setScene(new Scene(root, 600, 550));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void showRestartButton() {
@@ -210,5 +243,6 @@ public class TicTacToeController {
             default:
                 return null;
         }
+
     }
 }

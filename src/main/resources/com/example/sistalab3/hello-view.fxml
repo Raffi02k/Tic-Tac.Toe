@@ -37,6 +37,9 @@
     <!-- Restart-knapp (osynlig från start) -->
     <Button fx:id="restartButton" onAction="#resetBoard" text="Restart Game" visible="false" GridPane.columnIndex="1" GridPane.halignment="center" GridPane.rowIndex="6" />
 
+    <!-- Home-knapp -->
+    <Button fx:id="homeButton" contentDisplay="CENTER" onAction="#goToHome" text="Home" textFill="#b53c3c" translateX="35.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+
     <!-- Column constraints för att styra bredden på kolumnerna -->
     <columnConstraints>
         <ColumnConstraints />

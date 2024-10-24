@@ -17,14 +17,17 @@
         private void handleSinglePlayer() {
             try {
                 // Ladda svårighetsmenyn
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Difficulty.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sistalab3/Difficulty.fxml"));
                 Parent root = loader.load();
                 Stage stage = (Stage) singlePlayerButton.getScene().getWindow();
-                stage.setScene(new Scene(root));
+
+                stage.setScene(new Scene(root, 600, 550));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
+
 
         @FXML
         private void handleMultiplayer() {
