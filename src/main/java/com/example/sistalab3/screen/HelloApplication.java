@@ -1,4 +1,4 @@
-package com.example.sistalab3;
+package com.example.sistalab3.screen;
 
 
 import javafx.application.Application;
@@ -12,16 +12,14 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Menu.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 550);
         stage.setTitle("Welcome to the FastTick!");
         stage.setScene(scene);
         stage.show();
     }
 
-
     public static void main(String[] args) {
-
         launch();
     }
 }

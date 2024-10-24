@@ -24,14 +24,22 @@ public class TicTacToeController {
 
     @FXML
     private Button restartButton;
-
     private Timeline turnTimer;
 
+    private String difficulty;
     private boolean isGameOver = false;
     private Model model = new Model();
 
     private Image xImage = new Image(getClass().getResourceAsStream("/com/example/sistalab3/image/X Background Removed.png"));
     private Image oImage = new Image(getClass().getResourceAsStream("/com/example/sistalab3/image/O Background Removed.png"));
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+        System.out.println("Svårighetsgrad satt till: " + difficulty);  // För debug, skriv ut svårighetsgraden
+    }
+
+
+
 
     @FXML
     private void initialize() {
@@ -164,16 +172,12 @@ public class TicTacToeController {
             button.setGraphic(null);
             button.setUserData(null);
         }
-
-        turnLabel.setText("X's Turn");  // Återställ till "X's Turn"
-        resultLabel.setText(""); // Nollställ resultatlabeln
-        turnLabel.setVisible(true);  // Visa turtexten igen
-        restartButton.setVisible(false);  // Dölj restart-knappen
+        turnLabel.setText("X's Turn");
+        resultLabel.setText("");
+        restartButton.setVisible(false);
         countdownLabel.setVisible(false);
-
-        model.resetGame();  // Återställ modellen
-        isGameOver = false;  // Återställ spelet till "inte över"
-
+        model.resetGame();
+        isGameOver = false;
         turnTimer.stop();
     }
 

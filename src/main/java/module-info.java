@@ -4,11 +4,9 @@ module com.example.sistalab3 {
     requires java.desktop;
     requires javafx.media;
 
-
-    opens com.example.sistalab3 to javafx.fxml;
-    exports com.example.sistalab3;
+    opens com.example.sistalab3.controller to javafx.fxml; 
     exports com.example.sistalab3.controller;
-    opens com.example.sistalab3.controller to javafx.fxml;
-    exports com.example.sistalab3.model;
-    opens com.example.sistalab3.model to javafx.fxml;
+    opens com.example.sistalab3.screen to javafx.fxml;
+    exports com.example.sistalab3.screen;
+    opens com.example.sistalab3.model;
 }

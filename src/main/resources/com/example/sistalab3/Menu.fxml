@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistalab3.controller.MenuController">
+    <Label text="Welcome to FastTick!" style="-fx-font-size: 22px; -fx-font-family: 'Chalkboard SE'"/>
+    <Button fx:id="singlePlayerButton" text="Single Player" onAction="#handleSinglePlayer"/>
+    <Button fx:id="multiplayerButton" text="Multiplayer" onAction="#handleMultiplayer"/>
+    <Button fx:id="scoreboardButton" text="Scoreboard" onAction="#handleScoreboard"/>
+</VBox>
