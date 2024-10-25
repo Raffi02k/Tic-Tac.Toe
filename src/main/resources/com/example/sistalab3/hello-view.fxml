@@ -4,7 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="gridPane" alignment="center" hgap="1" prefHeight="453.0" prefWidth="534.0" style="-fx-background-color: white;" vgap="1" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistalab3.controller.TicTacToeController">
+<GridPane fx:id="gridPane" alignment="center" hgap="1" prefHeight="453.0" prefWidth="534.0" style="-fx-background-color: white;"
+          vgap="1" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistalab3.controller.TicTacToeController" stylesheets="@css/styles.css">
     <padding>
         <Insets topRightBottomLeft="20" />
     </padding>

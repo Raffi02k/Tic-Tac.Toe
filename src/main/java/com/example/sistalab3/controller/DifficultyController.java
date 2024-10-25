@@ -13,8 +13,8 @@ public class DifficultyController {
     @FXML
     private Button easyButton, mediumButton, hardButton;
 
-    @FXML
-    private Button coopButton;
+//    @FXML
+//    private Button coopButton;
 
     @FXML
     private void handleCoop() {

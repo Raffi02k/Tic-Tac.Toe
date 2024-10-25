@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistalab3.controller.MenuController">
-    <Label text="Welcome to FastTick!" style="-fx-font-size: 22px; -fx-font-family: 'Chalkboard SE'"/>
-    <Button fx:id="singlePlayerButton" text="Single Player" onAction="#handleSinglePlayer"/>
-    <Button fx:id="multiplayerButton" text="Multiplayer" onAction="#handleMultiplayer"/>
-    <Button fx:id="scoreboardButton" text="Scoreboard" onAction="#handleScoreboard"/>
+<VBox fx:id="menuGridPane" alignment="CENTER" spacing="10" stylesheets="@css/menu.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistalab3.controller.MenuController">
+    <Label style="-fx-font-size: 22px; -fx-font-family: 'Chalkboard SE'" text="Welcome to FastTick!" textFill="#fcfcfc" />
+    <Button fx:id="singlePlayerButton" onAction="#handleSinglePlayer" text="Single Player" />
+    <Button fx:id="multiplayerButton" onAction="#handleMultiplayer" text="Multiplayer" />
+    <Button fx:id="scoreboardButton" onAction="#handleScoreboard" text="Scoreboard" />
 </VBox>

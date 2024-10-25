@@ -5,14 +5,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="center" hgap="10" prefHeight="270.0" prefWidth="400.0" style="-fx-background-color: #f0f0f0;" vgap="20" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistalab3.controller.DifficultyController">
+<GridPane fx:id="difficultyGridPane" alignment="center" hgap="10" prefHeight="270.0" prefWidth="400.0" style="-fx-background-color: #f0f0f0;" stylesheets="@css/difficulty.css" vgap="20" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistalab3.controller.DifficultyController">
     <!-- Sätt padding runt GridPane -->
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
 
     <!-- Rubrik: Choose Your Difficulty -->
-    <Label prefHeight="31.0" prefWidth="274.0" style="-fx-font-size: 24px;-fx-font-family: 'Beirut'; -fx-font-weight: bold; -fx-text-fill: #333;" text="Choose Your Difficulty" translateX="5.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+    <Label prefHeight="31.0" prefWidth="274.0" style="-fx-font-size: 24px;-fx-font-family: 'Beirut'; -fx-font-weight: bold; -fx-text-fill: #fcfcfc;" text="Choose Your Difficulty" textFill="#c6e2ff" translateX="5.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
         <font>
             <Font name="Arial" size="24" />
         </font>

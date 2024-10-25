@@ -1,0 +1,5 @@
+#difficultyGridPane {
+    -fx-background-image: url('../image/background.jpg');
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+}
