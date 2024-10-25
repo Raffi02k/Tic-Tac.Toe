@@ -1,4 +1,4 @@
-package com.example.sistalab3;
+package com.example.sistalab3.network;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,19 +8,14 @@ import java.net.Socket;
 
 public class Client {
     public static void main(String[] args) {
-        String host = "fungover.org";
-        int port = 80;
+        String host = "localhost";
+        int port = 8080;
 
         try (Socket socket = new Socket(host, port)) {
-            String request = """
-                    GET / HTTP/1.1
-                    Host: fungover.org
-                    Connection: close
-                    
-                    """;
+            String request = "Hello World!";
 
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
-            writer.print(request);
+            writer.println(request);
             writer.flush();
 
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
