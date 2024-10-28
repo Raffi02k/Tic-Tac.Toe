@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Model {
+
     public enum AIType {
         EASY, MEDIUM, HARD, CO_OP
     }

@@ -1,6 +1,8 @@
 package com.example.sistalab3.controller;
 
 import com.example.sistalab3.model.Model;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,9 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -58,6 +57,7 @@ public class TicTacToeController {
                 break;
         }
     }
+
     public void setCoopMode() {
         model.setAIType(Model.AIType.CO_OP);
         isXTurn = true;
@@ -154,8 +154,6 @@ public class TicTacToeController {
             makeAIMove();
         }
     }
-
-
 
 
     private void updateScore() {

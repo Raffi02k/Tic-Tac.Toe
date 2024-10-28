@@ -3,27 +3,26 @@ package com.example.sistalab3.utils;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+import java.net.URL;
+
 public class MediaManager {
-    private MediaPlayer backgroundMusicPlayer;
+    private MediaPlayer mediaPlayer;
 
     public void playBackgroundMusic(String filePath, boolean loop) {
-        Media media = new Media(getClass().getResource(filePath).toExternalForm());
-        backgroundMusicPlayer = new MediaPlayer(media);
-        if (loop) {
-            backgroundMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Loopar musiken
+        URL musicUrl = getClass().getResource(filePath);
+        if (musicUrl == null) {
+            throw new IllegalArgumentException("Musikfilen kunde inte hittas: " + filePath);
         }
-        backgroundMusicPlayer.play();
+
+        Media media = new Media(musicUrl.toExternalForm());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setCycleCount(loop ? MediaPlayer.INDEFINITE : 1);
+        mediaPlayer.play();
     }
 
     public void stopBackgroundMusic() {
-        if (backgroundMusicPlayer != null) {
-            backgroundMusicPlayer.stop();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
         }
     }
-
-    public void playSoundEffect(String filePath) {
-        Media soundEffect = new Media(getClass().getResource(filePath).toExternalForm());
-        MediaPlayer soundEffectPlayer = new MediaPlayer(soundEffect);
-        soundEffectPlayer.play();
     }
-}

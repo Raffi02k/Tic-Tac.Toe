@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox fx:id="menuGridPane" alignment="CENTER" spacing="10" stylesheets="@css/menu.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistalab3.controller.MenuController">
@@ -8,4 +9,9 @@
     <Button fx:id="singlePlayerButton" onAction="#handleSinglePlayer" text="Single Player" />
     <Button fx:id="multiplayerButton" onAction="#handleMultiplayer" text="Multiplayer" />
     <Button fx:id="scoreboardButton" onAction="#handleScoreboard" text="Scoreboard" />
+   <ImageView fitHeight="150.0" fitWidth="200.0"  preserveRatio="true" scaleX="5.0" scaleY="5.0" translateY="60.0">
+      <image>
+         <Image url="@image/raffi.png" />
+      </image>
+   </ImageView>
 </VBox>
