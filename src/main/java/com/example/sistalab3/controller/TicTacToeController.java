@@ -13,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.IOException;
 
 public class TicTacToeController {
@@ -44,7 +43,6 @@ public class TicTacToeController {
         this.difficulty = difficulty;
         System.out.println("Svårighetsgrad satt till: " + difficulty);
 
-        // Beroende på svårighetsgrad, implementera olika AI-strategier senare.
         switch (difficulty) {
             case "easy":
                 model.setAIType(Model.AIType.EASY);
@@ -107,7 +105,7 @@ public class TicTacToeController {
 
         Button clickedButton = (Button) event.getSource();
         if (clickedButton.getGraphic() != null) {
-            return; // Om knappen redan har en symbol, gör inget
+            return;
         }
 
         countdown = 3;
@@ -117,7 +115,7 @@ public class TicTacToeController {
 
         int index = Integer.parseInt(clickedButton.getId().replace("button", "")) - 1;
         String currentPlayer = model.getCurrentPlayer();
-        model.makeMove(index, currentPlayer); // Gör draget
+        model.makeMove(index, currentPlayer);
 
         ImageView imageView = new ImageView(model.isXTurn() ? xImage : oImage);
         imageView.setFitWidth(100);
@@ -149,7 +147,6 @@ public class TicTacToeController {
         model.switchTurn();
         updateTurnLabel();
 
-        // Gör AI-draget om det är O:s tur och inte Co-op-läget
         if (model.getAIType() != Model.AIType.CO_OP && !isGameOver) {
             makeAIMove();
         }
@@ -163,7 +160,6 @@ public class TicTacToeController {
 
     @FXML
     private void resetBoard() {
-        // Återställ grafiken och användardata för alla knappar
         for (Button button : new Button[]{button1, button2, button3,
                 button4, button5, button6, button7, button8, button9}) {
             button.setGraphic(null);
@@ -180,9 +176,9 @@ public class TicTacToeController {
 
 
     private void makeAIMove() {
-        int move = model.getAIMove(); // Hämta AI:s drag
+        int move = model.getAIMove();
         String currentPlayer = model.getCurrentPlayer();
-        model.makeMove(move, currentPlayer); // Gör draget i modellen
+        model.makeMove(move, currentPlayer);
 
         Button aiButton = getButtonByIndex(move);
         ImageView imageView = new ImageView(oImage);
@@ -192,7 +188,6 @@ public class TicTacToeController {
         aiButton.setGraphic(imageView);
         aiButton.setUserData("O");
 
-        // Kolla om AI har vunnit
         String winner = model.checkWinner();
         if (winner != null) {
             resultLabel.setText("The winner is " + winner + "!");
@@ -230,7 +225,7 @@ public class TicTacToeController {
 
     private void showRestartButton() {
         restartButton.setVisible(true);
-        turnLabel.setVisible(false);  // Dölj turtexten när spelet är över
+        turnLabel.setVisible(false);
         turnTimer.stop();
     }
 

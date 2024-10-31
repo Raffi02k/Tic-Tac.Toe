@@ -1,19 +1,17 @@
 package com.example.sistalab3.controller;
 
-import com.example.sistalab3.utils.MediaManager;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import java.io.IOException;
 
 public class DifficultyController {
 
     @FXML
-    private Button easyButton, mediumButton, hardButton, coopButton;
+    private Button easyButton;
 
     @FXML
     private void handleCoop() {
@@ -49,7 +47,7 @@ public class DifficultyController {
             Stage stage = (Stage) easyButton.getScene().getWindow();
             stage.setScene(new Scene(root, 600, 550));
 
-            } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

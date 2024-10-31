@@ -17,7 +17,7 @@ public class Model {
     private String[] board = new String[9]; // Håll koll på brädet
 
     public AIType getAIType() {
-        return aiType; // Ny metod för att få AI-typ
+        return aiType;
     }
     public void setAIType(AIType aiType) {
         this.aiType = aiType;
@@ -29,11 +29,11 @@ public class Model {
         }
         switch (aiType) {
             case EASY:
-                return getRandomAvailableMove(); // Slumpar ett drag
+                return getRandomAvailableMove();
             case MEDIUM:
-                return getMediumMove(); // Implementera medel AI
+                return getMediumMove();
             case HARD:
-                return getHardMove(); // Implementera svår AI
+                return getHardMove();
             default:
                 throw new IllegalArgumentException("Invalid AI type");
         }
@@ -74,6 +74,9 @@ public class Model {
             board[index] = player; // Sätt spelaren på brädet
         }
     }
+    public String[] getBoard() {
+        return board;
+    }
 
     public String checkWinner() {
         int[][] winningCombinations = {
@@ -99,7 +102,7 @@ public class Model {
     }
 
     public String getCurrentPlayer() {
-        return isXTurn ? "X" : "O"; // Returnera den nuvarande spelaren
+        return isXTurn ? "X" : "O";
     }
 
     public int getRandomAvailableMove() {
@@ -110,7 +113,7 @@ public class Model {
             }
         }
 
-        // Om det finns tillgängliga drag, välj ett slumpmässigt
+
         if (!availableMoves.isEmpty()) {
             Random random = new Random();
             return availableMoves.get(random.nextInt(availableMoves.size()));
@@ -120,7 +123,6 @@ public class Model {
     }
 
     private int getMediumMove() {
-        // 1. Kontrollera om AI:n kan vinna i nästa drag
         for (int i = 0; i < board.length; i++) {
             if (board[i] == null) { // Om rutan är ledig
                 board[i] = "O"; // Sätt AI:s drag

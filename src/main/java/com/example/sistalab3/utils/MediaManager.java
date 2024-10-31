@@ -2,7 +2,6 @@ package com.example.sistalab3.utils;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-
 import java.net.URL;
 
 public class MediaManager {
@@ -25,4 +24,4 @@ public class MediaManager {
             mediaPlayer.stop();
         }
     }
-    }
+}
