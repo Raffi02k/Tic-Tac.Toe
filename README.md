@@ -45,7 +45,7 @@ FastTick är fullpackad med spännande funktioner som gör spelet roligt och utm
 ### Steg för att köra projektet
 1. Klona detta repository:
    ```bash
-   git clone https://github.com/[ditt-github-användarnamn]/tictactoe-fasttick.git
+   git clone https://github.com/raffi02k/tictactoe-fasttick.git
 ### Öppna projektet i din IDE.
 Bygg och kör projektet från HelloApplication.java eller MenuApplication.java.
 Utmana AI eller en vän och spela Tic-Tac-Toe FastTick!
