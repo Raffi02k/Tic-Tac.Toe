@@ -46,17 +46,17 @@ FastTick är fullpackad med spännande funktioner som gör spelet roligt och utm
 1. Klona detta repository:
    ```bash
    git clone https://github.com/[ditt-github-användarnamn]/tictactoe-fasttick.git
-###Öppna projektet i din IDE.
+### Öppna projektet i din IDE.
 Bygg och kör projektet från HelloApplication.java eller MenuApplication.java.
 Utmana AI eller en vän och spela Tic-Tac-Toe FastTick!
 Skärmbilder
 Spelskärm
 
-###Framtida förbättringar
+### Framtida förbättringar
 Online Multiplayer: Möjlighet att spela mot vänner online.
 Poängsystem: Hålla reda på vinster, förluster och rankningar.
-##Teman: Anpassa spelets utseende med olika teman.
-###Credits
+## Teman: Anpassa spelets utseende med olika teman.
+### Credits
 Detta projekt utvecklades som en del av ett programmeringsinitiativ för att öva på:
 
 Kreativ implementation av AI.
